@@ -20,5 +20,4 @@ restart:
 .PHONY: pprof
 ##		GO111MODULE=on go run api.go main.go
 pprof:
-		go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile?seconds=$(PPROF_TIME)
-		curl -X POST -F img=@pprof.png $(DISCORD_WEBHOOK_URL) 
+	./pprof.sh $(PPROF_TIME) $(DISCORD_WEBHOOK_URL)
