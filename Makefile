@@ -11,7 +11,11 @@ deps:
 
 .PHONY: build
 build:
-	GOPATH=`pwd`:`pwd`/vendor go build -v torb
+	go build ./src/torb
+
+.PHONY: restart
+restart:
+	sudo systemctl restart torb.go
 
 .PHONY: pprof
 ##		GO111MODULE=on go run api.go main.go
