@@ -235,7 +235,7 @@ func getEvent(eventID, loginUserID int64) (*Event, error) {
 		"C": {},
 	}
 
-	rows, err := db.Query("Select * From reservations WHERE event_id = ? AND canceled_at IS NULL GROUP BY event_id HAVING reaserved_at = MIN(reserved_at)", event.ID)
+	rows, err := db.Query("Select * From reservations WHERE event_id = ? AND canceled_at IS NULL GROUP BY event_id HAVING reserved_at = MIN(reserved_at)", event.ID)
 	if err != nil {
 		return nil, err
 	}
