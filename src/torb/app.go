@@ -250,7 +250,7 @@ func getEvent(eventID, loginUserID int64) (*Event, error) {
 		reservations[reservation.SheetID] = &reservation
 	}
 
-	rows, err = db.Query("SELECT * FROM sheets")
+	rows, err = db.Query("SELECT * FROM sheets ORDER BY `rank`, num")
 	if err != nil {
 		return nil, err
 	}
