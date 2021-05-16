@@ -9,6 +9,8 @@ import (
 	"html/template"
 	"io"
 	"log"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/exec"
 	"sort"
@@ -227,10 +229,10 @@ func getEvent(eventID, loginUserID int64) (*Event, error) {
 		return nil, err
 	}
 	event.Sheets = map[string]*Sheets{
-		"S": &Sheets{},
-		"A": &Sheets{},
-		"B": &Sheets{},
-		"C": &Sheets{},
+		"S": {},
+		"A": {},
+		"B": {},
+		"C": {},
 	}
 
 	rows, err := db.Query("SELECT * FROM sheets ORDER BY `rank`, num")
@@ -310,6 +312,9 @@ func (r *Renderer) Render(w io.Writer, name string, data interface{}, c echo.Con
 var db *sql.DB
 
 func main() {
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&charset=utf8mb4",
 		os.Getenv("DB_USER"), os.Getenv("DB_PASS"),
 		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"),
