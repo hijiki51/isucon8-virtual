@@ -229,10 +229,10 @@ func getEvent(eventID, loginUserID int64) (*Event, error) {
 		return nil, err
 	}
 	event.Sheets = map[string]*Sheets{
-		"S": &Sheets{},
-		"A": &Sheets{},
-		"B": &Sheets{},
-		"C": &Sheets{},
+		"S": {},
+		"A": {},
+		"B": {},
+		"C": {},
 	}
 
 	rows, err := db.Query("SELECT * FROM sheets ORDER BY `rank`, num")
